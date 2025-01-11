@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding JavaScript Date Object</title>
+  <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./assets/JavaScript-logo.png" type="image/png">
+</head>
+<body>
+  <header>
+    <h1>Understanding the JavaScript Date Object</h1>
+    
+    <button id="theme-toggle">
+        <img src="./assets/dark.png" alt="Light mode">
+    </button>
+  </header>
+  
+  <main>
+    <article>
+      <h2>What is the <code>Date</code> Object?</h2>
+      <p>In JavaScript, a <code>Date</code> object is like a little helper that manages dates and times for us. It allows us to:</p>
+      <ul>
+        <li>Get the current date and time.</li>
+        <li>Create a specific date and time (like your birthday, for example).</li>
+        <li>Change or update parts of the date, like the year, month, or hour.</li>
+        <li>Compare two different dates to see which one comes first.</li>
+      </ul>
+      
+      <h2>How Do We Create a <code>Date</code> Object?</h2>
+      <p>Creating a <code>Date</code> object is simple. You just tell JavaScript, “Hey, I want a date object!” and it will give you one.</p>
+      <pre><code>// Create a Date object with the current date and time
+const date = new Date();
+console.log(date);</code></pre>
+
+      <p>This code will give you the current date and time when it runs.</p>
+      
+      <h2>Can I Create a Date for a Specific Time?</h2>
+      <p>Yes! You can create a <code>Date</code> object for any date and time you want.</p>
+      <pre><code>// Create a Date object for a specific date and time
+const birthday = new Date('2025-01-11T12:00:00');
+console.log(birthday);</code></pre>
+
+      <h2>What Can I Do With a <code>Date</code> Object?</h2>
+      <p>Once you have a <code>Date</code> object, you can ask it for all sorts of information. Let’s break it down into simple tasks:</p>
+
+      <h3>1. Get the Current Date and Time</h3>
+      <pre><code>const date = new Date();
+console.log(date); // Example output: Fri Jan 11 2025 10:30:00 GMT+0000 (Coordinated Universal Time)</code></pre>
+      
+      <h3>2. Get Specific Parts of the Date</h3>
+      <p>You can extract specific parts like the year, month, day, etc., using these methods:</p>
+      <pre><code>// Get the year
+console.log(date.getFullYear()); // Example: 2025
+
+// Get the month (0-11)
+console.log(date.getMonth());    // Example: 0 (January)
+
+// Get the day of the month
+console.log(date.getDate());     // Example: 11
+
+// Get the day of the week (0-6)
+console.log(date.getDay());      // Example: 5 (Friday)</code></pre>
+
+      <h3>3. Set a Specific Date and Time</h3>
+      <p>You can also set parts of the date and time using methods like <code>setFullYear()</code>, <code>setMonth()</code>, etc.</p>
+      <pre><code>const date = new Date();
+date.setFullYear(2025);  // Set year to 2025
+date.setMonth(6);        // Set month to July (Remember: 6 means July)
+date.setDate(15);        // Set day to 15th
+console.log(date);       // The updated date will be displayed</code></pre>
+
+      <h3>4. Format Dates</h3>
+      <p>JavaScript also lets you format dates in various ways:</p>
+      <pre><code>// Using toLocaleDateString
+console.log(new Date().toLocaleDateString()); // Example: "1/11/2025"
+
+// Custom formatting
+const date = new Date();
+const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+console.log(formattedDate); // Example: "11-1-2025"</code></pre>
+
+      <h2>Comparing Dates</h2>
+      <p>Let’s say you want to know which of two dates comes first. You can easily do that by comparing them:</p>
+      <pre><code>const date1 = new Date('2025-01-11');
+const date2 = new Date('2024-12-25');
+console.log(date1 > date2);  // Output: true, because January 11, 2025 is later than December 25, 2024</code></pre>
+
+      <h2>Why Is This Useful?</h2>
+      <p>You might be wondering, "Why do I need to work with dates and times?" Here are some examples of how the <code>Date</code> object can help:</p>
+      <ul>
+        <li><strong>Countdowns:</strong> Display a countdown to an event (like New Year’s Eve or a product launch).</li>
+        <li><strong>Scheduling:</strong> Manage appointments, reminders, or reservations.</li>
+        <li><strong>Tracking:</strong> Log when users last visited your website or when actions were taken.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>In simple terms, the <code>Date</code> object in JavaScript is like a special tool that lets you:</p>
+      <ul>
+        <li>Get the current date and time.</li>
+        <li>Set specific dates and times for things like events or tasks.</li>
+        <li>Break down a date into parts like the year, month, day, and even the day of the week.</li>
+        <li>Format and display dates in different ways.</li>
+        <li>Compare dates to see which one is earlier or later.</li>
+      </ul>
+      <p>So whether you’re building a to-do list, tracking events, or displaying time-sensitive information, the <code>Date</code> object is your go-to tool in JavaScript for all things time-related!</p>
+    </article>
+  </main>
+  
+  <footer>
+    <div class="social-links">
+        <a href="https://www.facebook.com"><img src="./assets/facebook.png" alt="Facebook"></a>
+        <a href="https://www.twitter.com"><img src="./assets/x.png" alt="X"></a>
+        <a href="https://www.instagram.com"><img src="./assets/instagram.png" alt="Instagram"></a>
+        <a href="https://www.linkedin.com"><img src="./assets/linkedin.png" alt="LinkedIn"></a>
+    </div>
+    
+    <!-- Free visitor counter -->
+    <div id="visitor-counter">
+      <a href='http://www.freevisitorcounters.com'>freecounter</a>
+      <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=89ae35928251c0dc67489cf2e475228db2f6ca2b'></script>
+      <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1286446/t/2"></script>
+    </div>
+
+    <p>Copyright © 2025 Learn with Irfan</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
