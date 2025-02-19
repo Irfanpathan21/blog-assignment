@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/RLK0k7Z/Java-Script-logo.png">
+    <title>Exploring time using the Date object in JavaScript</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --code-bg: #f5f5f5;
+            --border-color: #e0e0e0;
+            --secondary-text: #666666;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --code-bg: #2d2d2d;
+            --border-color: #404040;
+            --secondary-text: #bbbbbb;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 2rem;
+        }
+
+        .author-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            color: var(--secondary-text);
+        }
+
+        .follow-button {
+            background: none;
+            border: 1px solid var(--secondary-text);
+            color: var(--secondary-text);
+            padding: 4px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .read-info {
+            display: flex;
+            gap: 0.5rem;
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .like-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .like-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .code-editor {
+            width: 99%;
+            min-height: 100px;
+            font-family: monospace;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: var(--code-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .run-button {
+            background-color: #23aadf;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .output {
+            background-color: var(--code-bg);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: var(--code-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            border-radius: 4px;
+            color: var(--secondary-text);
+        }
+
+        .image-caption {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Exploring time using the Date object in JavaScript</h1>
+            <div class="author-meta">
+                <div>Irfan Pathan</div>
+            </div>
+            <div class="read-info">
+                <span>4 min read</span>
+                <span>·</span>
+                <span>Feb 19, 2025</span>
+                <span>·</span>
+                <span id="likeCount">0</span>
+            </div>
+            <div class="controls">
+                <div class="like-container">
+                    <button class="like-button" id="likeBtn">❤️</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+            </div>
+        </header>
+
+        <article>
+            <p>Time can't be ignored, in both life and programming. Often when building an application, our expectation of what we want to do with time is simple, but the implementation somehow becomes tricky, and working with time has a reputation for being unnecessarily complex (which may be a reflection of the real world, where our representations and rules for time are also at times complex).</p>
+            
+            <p>Turns out there is a bit more to how time is tracked, and I wanted to take a deeper dive into the Date object in JavaScript, how it is tracked and the built in methods used to work with time.</p>
+
+            <p>Where does time begin in JavaScript? The first millisecond of January 1 1970.</p>
+
+          
+                <div style="text-align: center;">
+                    <a href="https://ibb.co/fYXGZr49"><img src="https://i.ibb.co/MDg5KPMf/1970.png" alt="1970" border="0" style="max-width: 100%; height: auto;"></a>
+                </div>
+            
+            <p class="image-caption">Actual date of this image is Dec 21, 1970, which is 30517200000 in epoch time! (MPI/Getty Images)</p>
+
+            <p>Precisely, time in JavaScript is calculated from 01 January, 1970 00:00:00 UTC. This is the epoch start time (or zero time), where time is equal to 0. From there, time is stored as an integer to millisecond precision, and all date objects are associated with this integer.</p>
+
+            <p>To see the current time in epoch time, you can use Date.now() to view. As of writing, current epoch time is 1543175679999, or 1.543 trillion milliseconds since Jan 1 1970.</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+// Current epoch time
+console.log('Current epoch time:', Date.now());</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <p>We can see what date we get by creating a new date object and passing in the epoch time in milliseconds as the argument. For some perspective (and fun), what will the date be when epoch time hits two trillion?</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+// Date at 2 trillion milliseconds
+const futureDate = new Date(2000000000000);
+console.log('Date at 2 trillion milliseconds:', futureDate);</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <p>The current epoch time is 13 digits long. What year will it be when we hit 14 digits (10,000,000,000)?</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+// Date at 14 digits
+const farFutureDate = new Date(10000000000000);
+console.log('Date at 14 digits:', farFutureDate);</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://imgbb.com/"><img src="https://i.ibb.co/L3BkvqR/future.png" alt="future" border="0" style="max-width: 100%; height: auto;"></a>
+            </div>
+            <p class="image-caption">An artist's rendition of what the world may look like when epoch time hits ten trillion (Pixar)</p>
+
+            <p>To instantiate a new Date object, there are four primary ways:</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+// The four ways to create a Date object
+const now = new Date();
+console.log('1. Current date and time:', now);
+
+const fromMilliseconds = new Date(1543175679999);
+console.log('2. From milliseconds:', fromMilliseconds);
+
+const fromString = new Date('September 21, 2004 16:16:00');
+console.log('3. From string:', fromString);
+
+const fromComponents = new Date(2004, 8, 21, 16, 16, 0);
+console.log('4. From components:', fromComponents);</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <p>Very simply, we can create a date without passing in any arguments to create a Date object of the current moment:</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+const now = new Date();
+console.log('Current moment:', now);</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <p>You can also create a Date object by passing in arguments to create one; for example, the date that Oceanic 815 crashed onto the mysterious island in LOST, which happened at 4:16 pm on September 21, 2004:</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+const flight815 = new Date(2004, 8, 21, 16, 16, 0);
+console.log('Flight 815 crash:', flight815);</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <p>BUT WAIT… Oceanic 815 crashed at 4:16 PM somewhere in the south Pacific, not in the US eastern time zone (which is GMT-5 typically but GMT-4 during Daylight Saving Time!) This Date object was created based on the local time of my computer.</p>
+
+            <p>This brings us to some of the limitations and issues dealing with time in JavaScript. What would be the easiest way to set a time that is local to a time-zone I'm not currently in? The answer is that there's no simple way with vanilla JavaScript. There are libraries that handle these issues with a bit more sensitivity and ease, particularly when it comes to creating Date objects for different time zones or viewing an event that is not in your current time zone. One well known example is Moment (http://momentjs.com/), and another interesting one I came across was Spacetime (https://github.com/spencermountain/spacetime/wiki).</p>
+
+            <h2>GET methods</h2>
+            <p>These methods will return specific values from the Date object, which can be useful for comparison between two date objects or displaying specific information. For example, you can return the value for the hour from a Date object by using the .getHours() method. Particularly useful is the .getTime() method, which returns the epoch time in milliseconds that all Objects are stored as:</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+const date = new Date();
+console.log('Hours:', date.getHours());
+console.log('Epoch time:', date.getTime());
+console.log('Month:', date.getMonth());  // 0-11
+console.log('Day of month:', date.getDate());
+console.log('Year:', date.getFullYear());</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <h2>SET methods</h2>
+            <p>These methods will allow you to modify specific attributes of a Date object. Here are some examples, including some further looks into arithmetic:</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+const date = new Date();
+console.log('Original date:', date);
+
+// Set the year
+date.setFullYear(2025);
+console.log('After setting year:', date);
+
+// Add 7 days
+date.setDate(date.getDate() + 7);
+console.log('After adding 7 days:', date);</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+
+            <h2>toString methods</h2>
+            <p>Lastly, we can convert our Date object to a variety of different strings:</p>
+
+            <div class="code-block">
+                <textarea class="code-editor">
+const date = new Date();
+console.log('toString():', date.toString());
+console.log('toDateString():', date.toDateString());
+console.log('toTimeString():', date.toTimeString());
+console.log('toLocaleString():', date.toLocaleString());
+console.log('toLocaleDateString():', date.toLocaleDateString());
+console.log('toISOString():', date.toISOString());</textarea>
+                <button class="run-button">Run Code</button>
+                <div class="output"></div>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.documentElement;
+        let isDark = false;
+
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        });
+
+        // Like Counter
+        const likeBtn = document.getElementById('likeBtn');
+        const likeCount = document.getElementById('likeCount');
+        let likes = 0;
+
+        likeBtn.addEventListener('click', () => {
+            likes++;
+            likeCount.textContent = likes;
+            likeBtn.style.transform = 'scale(1.2)';
+            setTimeout(() => likeBtn.style.transform = 'scale(1)', 200);
+        });
+
+        // Code Runner
+        document.querySelectorAll('.run-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.parentElement;
+                const code = codeBlock.querySelector('.code-editor').value;
+                const output = codeBlock.querySelector('.output');
+                
+                const logs = [];
+                const originalLog = console.log;
+                console.log = (...args) => {
+                    logs.push(args.map(arg => 
+                        typeof arg === 'object' ? JSON.stringify(arg) : arg
+                    ).join(' '));
+                };
+
+                try {
+                    eval(code);
+                    output.innerHTML = logs.join('<br>');
+                } catch (error) {
+                    output.innerHTML = `Error: ${error.message}`;
+                }
+
+                console.log = originalLog;
+            });
+        });
+    </script>
+</body>
+</html>
